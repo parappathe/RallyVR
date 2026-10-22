@@ -507,9 +507,8 @@ function syncCar(dt) {
   m.shadow.position.y = (tr.heightAt(car.s) - car.y) + 0.03;
   m.interior.visible = inside || app === 'menu';
   // assento (cabeça) segue o carro, sem inclinar
-  if (seatY == null) seatY = car.y;
-  seatY = lerp(seatY, car.y, Math.min(1, dt * (car.airborne ? 5 : 12)));
-  if (!dt) seatY = car.y;
+  // sem atraso: em subida rápida o carro subiria e deixaria a cabeça para trás, embaixo dele
+  seatY = car.y;
   const c = Math.cos(car.h), s = Math.sin(car.h);
   // ponto (headX, headY, headZ) do carro girado por h
   seat.position.set(car.x + CAR3D.headX * c + CAR3D.headZ * s, seatY + CAR3D.headY, car.z - CAR3D.headX * s + CAR3D.headZ * c);
